@@ -15,7 +15,7 @@ in {
   ];
 
   users.users.martin = {
-    description = "Martin Wimpress";
+    description = "Reinaldo P JR";
     extraGroups =
       [
         "audio"
@@ -28,9 +28,16 @@ in {
       ++ ifExists [
         "docker"
         "podman"
+        "adbusers"
+        "network"
+        "wireshark"
+        "lxd"
+        "plugdev"
+        "render"
+        "libvirtd"
       ];
     # mkpasswd -m sha-512
-    hashedPassword = "$6$UXNQ20Feu82wCFK9$dnJTeSqoECw1CGMSUdxKREtraO.Nllv3/fW9N3m7lPHYxFKA/Cf8YqYGDmiWNfaKeyx2DKdURo0rPYBrSZRL./";
+    hashedPassword = "$6$nmx8IpxHWpKjbT7O$R4RqA4sUDdCLmt.pO1w3.YAIje4/DPFcmj.a5hsdEzkekGPrgAEpEDyMK2Yotv.nZ9bnu5wuWEE7n0B6EL/ik1";
     homeMode = "0755";
     isNormalUser = true;
     openssh.authorizedKeys.keys = [

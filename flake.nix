@@ -1,9 +1,10 @@
 {
-  description = "Wimpy's NixOS and Home Manager Configuration";
+  description = "NixOS and Home Manager Configuration";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
-    # You can access packages and modules from different nixpkgs revs at the same time.
-    # See 'unstable-packages' overlay in 'overlays/default.nix'.
+    # nixpkgs-prev = "github:nixos/nixpkgs/nixos-22.11";
+    ### You can access packages and modules from different nixpkgs revs at the same time.
+    ### See 'unstable-packages' overlay in 'overlays/default.nix'.
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     agenix.url = "github:ryantm/agenix";
@@ -18,10 +19,50 @@
     nix-formatter-pack.url = "github:Gerschtli/nix-formatter-pack";
     nix-formatter-pack.inputs.nixpkgs.follows = "nixpkgs";
 
+    # nix-software-center.url = "github:vlinkz/nix-software-center";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     vscode-server.url = "github:msteen/nixos-vscode-server";
     vscode-server.inputs.nixpkgs.follows = "nixpkgs";
+
+    # nix-index-database.url = "github:Mic92/nix-index-database";
+    # nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
+    # darwin.url = "github:lnl7/nix-darwin/master"; # MacOS Package Management
+    # darwin.inputs.nixpkgs.follows = "nixpkgs";
+
+    # nixgl.url = "github:guibou/nixGL";
+
+    # nixos-generators.url = "github:NixOS/nixos-hardware/master";
+
+    # nur.url = "github:nix-community/NUR"; # Add "nur.nixosModules.nur" to the host modules
+
+    # spicetify-nix.url = "github:the-argus/spicetify-nix";
+    # nixpkgs-f2k.url = "github:fortuneteller2k/nixpkgs-f2k";
+
+    # wallpaper-generator.url = "github:pinpox/wallpaper-generator";
+    # wallpaper-generator.flake = false;
+
+    # robotnix.url = "github:danielfullmer/robotnix";
+
+    # emacs-overlay.url = "github:nix-community/emacs-overlay";
+    # emacs-overlay.flake = false;
+
+    # doom-emacs.url = "github:nix-community/nix-doom-emacs";
+    # doom-emacs.inputs.nixpkgs.follows = "nixpkgs";
+    # doom-emacs.inputs.emacs-overlay.follows = "emacs-overlay";
+
+    # hyprland.url = "github:vaxerski/Hyprland"; # Add "hyprland.nixosModules.default" to the host modules
+    # hyprland.inputs.nixpkgs.follows = "nixpkgs";
+
+    ### KDE Plasma user settings
+    # plasma-manager.url = "github:pjones/plasma-manager"; # Add "inputs.plasma-manager.homeManagerModules.plasma-manager" to the home-manager.users.${user}.imports
+    # plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
+    # plasma-manager.inputs.home-manager.follows = "nixpkgs";
+
+    # budgie.url = "github:FedericoSchonborn/budgie-nix";
+    # budgie.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = {
     self,
@@ -36,81 +77,81 @@
     libx = import ./lib {inherit inputs outputs stateVersion;};
   in {
     # home-manager switch -b backup --flake $HOME/Zero/nix-config
-    # nix build .#homeConfigurations."martin@ripper".activationPackage
+    # nix build .#homeConfigurations."juca@ripper".activationPackage
     homeConfigurations = {
       # .iso images
-      "martin@iso-console" = libx.mkHome {
+      "juca@iso-console" = libx.mkHome {
         hostname = "iso-console";
         username = "nixos";
       };
-      "martin@iso-desktop" = libx.mkHome {
+      "juca@iso-desktop" = libx.mkHome {
         hostname = "iso-desktop";
         username = "nixos";
         desktop = "pantheon";
       };
       # Workstations
-      "martin@designare" = libx.mkHome {
+      "juca@designare" = libx.mkHome {
         hostname = "designare";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
-      "martin@micropc" = libx.mkHome {
+      "juca@micropc" = libx.mkHome {
         hostname = "micropc";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
-      "martin@p1" = libx.mkHome {
+      "juca@p1" = libx.mkHome {
         hostname = "p1";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
-      "martin@p2-max" = libx.mkHome {
+      "juca@p2-max" = libx.mkHome {
         hostname = "p2-max";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
-      "martin@ripper" = libx.mkHome {
+      "juca@ripper" = libx.mkHome {
         hostname = "ripper";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
-      "martin@trooper" = libx.mkHome {
+      "juca@trooper" = libx.mkHome {
         hostname = "trooper";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
-      "martin@vm" = libx.mkHome {
+      "juca@vm" = libx.mkHome {
         hostname = "vm";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
-      "martin@win2" = libx.mkHome {
+      "juca@win2" = libx.mkHome {
         hostname = "win2";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
-      "martin@win-max" = libx.mkHome {
+      "juca@win-max" = libx.mkHome {
         hostname = "win-max";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
-      "martin@zed" = libx.mkHome {
+      "juca@zed" = libx.mkHome {
         hostname = "zed";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
       # Servers
-      "martin@brix" = libx.mkHome {
+      "juca@brix" = libx.mkHome {
         hostname = "brix";
-        username = "martin";
+        username = "juca";
       };
-      "martin@skull" = libx.mkHome {
+      "juca@skull" = libx.mkHome {
         hostname = "skull";
-        username = "martin";
+        username = "juca";
       };
-      "martin@vm-mini" = libx.mkHome {
+      "juca@vm-mini" = libx.mkHome {
         hostname = "vm-mini";
-        username = "martin";
+        username = "juca";
       };
       # Steam Deck
       "deck@steamdeck" = libx.mkHome {
@@ -155,66 +196,66 @@
       #  - nix build .#nixosConfigurations.ripper.config.system.build.toplevel
       designare = libx.mkHost {
         hostname = "designare";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
       p1 = libx.mkHost {
         hostname = "p1";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
       p2-max = libx.mkHost {
         hostname = "p2-max";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
       micropc = libx.mkHost {
         hostname = "micropc";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
       ripper = libx.mkHost {
         hostname = "ripper";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
       trooper = libx.mkHost {
         hostname = "trooper";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
       vm = libx.mkHost {
         hostname = "vm";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
       win2 = libx.mkHost {
         hostname = "win2";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
       win-max = libx.mkHost {
         hostname = "win-max";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
       zed = libx.mkHost {
         hostname = "zed";
-        username = "martin";
+        username = "juca";
         desktop = "pantheon";
       };
       # Servers
       brix = libx.mkHost {
         hostname = "brix";
-        username = "martin";
+        username = "juca";
       };
       skull = libx.mkHost {
         hostname = "skull";
-        username = "martin";
+        username = "juca";
       };
       vm-mini = libx.mkHost {
         hostname = "vm-mini";
-        username = "martin";
+        username = "juca";
       };
     };
 
@@ -232,9 +273,9 @@
         nix-formatter-pack.lib.mkFormatter {
           pkgs = nixpkgs.legacyPackages.${system};
           config.tools = {
-            alejandra.enable = false;
+            alejandra.enable = true;
             deadnix.enable = true;
-            nixpkgs-fmt.enable = true;
+            nixpkgs-fmt.enable = false;
             statix.enable = true;
           };
         }
