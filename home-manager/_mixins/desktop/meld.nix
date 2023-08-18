@@ -1,6 +1,5 @@
-{ lib, ... }:
-with lib.hm.gvariant;
-{
+{lib, ...}:
+with lib.hm.gvariant; {
   dconf.settings = {
     "org/gnome/meld" = {
       indent-width = 4;

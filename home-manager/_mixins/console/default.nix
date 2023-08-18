@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   home = {
     file = {
       "${config.xdg.configHome}/neofetch/config.conf".text = builtins.readFile ./neofetch.conf;
@@ -88,7 +93,7 @@
         };
         disk_filter = {
           is_list_ignored = true;
-          list = [ "/dev/loop" ];
+          list = ["/dev/loop"];
           regex = true;
           case_sensitive = false;
           whole_word = false;
@@ -136,7 +141,7 @@
     };
     gh = {
       enable = true;
-      extensions = with pkgs; [ gh-markdown-preview ];
+      extensions = with pkgs; [gh-markdown-preview];
       settings = {
         editor = "micro";
         git_protocol = "ssh";

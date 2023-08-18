@@ -1,6 +1,6 @@
 # NOTE: This is the minimum Pantheon, included in the live .iso image
 # For actuall installs pantheon-apps.nix is also included
-{ pkgs, ... }: {
+{pkgs, ...}: {
   imports = [
     ./qt-style.nix
     ../services/networkmanager.nix
@@ -18,7 +18,7 @@
     # App indicator
     # - https://discourse.nixos.org/t/anyone-with-pantheon-de/28422
     # - https://github.com/NixOS/nixpkgs/issues/144045#issuecomment-992487775
-    pathsToLink = [ "/libexec" ];
+    pathsToLink = ["/libexec"];
   };
 
   services = {
@@ -47,8 +47,8 @@
   # - https://github.com/NixOS/nixpkgs/issues/144045#issuecomment-992487775
   systemd.user.services.indicator-application-service = {
     description = "indicator-application-service";
-    wantedBy = [ "graphical-session.target" ];
-    partOf = [ "graphical-session.target" ];
+    wantedBy = ["graphical-session.target"];
+    partOf = ["graphical-session.target"];
     serviceConfig = {
       ExecStart = "${pkgs.indicator-application-gtk3}/libexec/indicator-application/indicator-application-service";
     };

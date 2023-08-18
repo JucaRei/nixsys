@@ -15,9 +15,12 @@
 # NVME:        AORUS NVMe Gen4 SSD 2TB
 # NVME:        AORUS NVMe Gen4 SSD 2TB
 # NVME:        AORUS NVMe Gen4 SSD 2TB
-
-{ inputs, lib, pkgs, ... }:
 {
+  inputs,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
@@ -25,7 +28,7 @@
     inputs.nixos-hardware.nixosModules.common-gpu-nvidia
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-    (import ./disks.nix { })
+    (import ./disks.nix {})
     ../_mixins/hardware/systemd-boot.nix
     ../_mixins/hardware/streamdeck.nix
     ../_mixins/services/bluetooth.nix
@@ -41,7 +44,7 @@
   fileSystems."/" = lib.mkForce {
     device = "/dev/disk/by-partlabel/root";
     fsType = "xfs";
-    options = [ "defaults" "relatime" "nodiratime" ];
+    options = ["defaults" "relatime" "nodiratime"];
   };
 
   fileSystems."/boot" = lib.mkForce {
@@ -52,18 +55,20 @@
   fileSystems."/mnt/archive" = {
     device = "/dev/disk/by-label/archive";
     fsType = "xfs";
-    options = [ "defaults" "relatime" "nodiratime" ];
+    options = ["defaults" "relatime" "nodiratime"];
   };
 
-  swapDevices = [{
-    device = "/swap";
-    size = 2048;
-  }];
+  swapDevices = [
+    {
+      device = "/swap";
+      size = 2048;
+    }
+  ];
 
   boot = {
-    blacklistedKernelModules = lib.mkDefault [ "nouveau" ];
-    initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-    kernelModules = [ "amdgpu" "kvm-amd" "nvidia" ];
+    blacklistedKernelModules = lib.mkDefault ["nouveau"];
+    initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
+    kernelModules = ["amdgpu" "kvm-amd" "nvidia"];
     kernelPackages = lib.mkDefault pkgs.linuxPackages_6_1;
   };
 
@@ -97,7 +102,7 @@
       motherboard = "amd";
       package = pkgs.openrgb-with-all-plugins;
     };
-    xserver.videoDrivers = [ "amdgpu" "nvidia" ];
+    xserver.videoDrivers = ["amdgpu" "nvidia"];
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

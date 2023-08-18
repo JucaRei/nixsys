@@ -1,8 +1,6 @@
-{ disks ? [ "/dev/nvme0n1" ], ... }:
-let
-  defaultXfsOpts = [ "defaults" "relatime" "nodiratime" ];
-in
-{
+{disks ? ["/dev/nvme0n1"], ...}: let
+  defaultXfsOpts = ["defaults" "relatime" "nodiratime"];
+in {
   disko.devices = {
     disk = {
       nvme0 = {
@@ -11,19 +9,20 @@ in
         content = {
           type = "table";
           format = "gpt";
-          partitions = [{
-            name = "ESP";
-            start = "0%";
-            end = "550MiB";
-            bootable = true;
-            flags = [ "esp" ];
-            fs-type = "fat32";
-            content = {
-              type = "filesystem";
-              format = "vfat";
-              mountpoint = "/boot";
-            };
-          }
+          partitions = [
+            {
+              name = "ESP";
+              start = "0%";
+              end = "550MiB";
+              bootable = true;
+              flags = ["esp"];
+              fs-type = "fat32";
+              content = {
+                type = "filesystem";
+                format = "vfat";
+                mountpoint = "/boot";
+              };
+            }
             {
               name = "root";
               start = "550MiB";
@@ -31,12 +30,13 @@ in
               content = {
                 type = "filesystem";
                 # Overwirte the existing filesystem
-                extraArgs = [ "-f" ];
+                extraArgs = ["-f"];
                 format = "xfs";
                 mountpoint = "/";
                 mountOptions = defaultXfsOpts;
               };
-            }];
+            }
+          ];
         };
       };
     };

@@ -1,23 +1,42 @@
-{ inputs, outputs, stateVersion, ... }: {
+{
+  inputs,
+  outputs,
+  stateVersion,
+  ...
+}: {
   # Helper function for generating home-manager configs
-  mkHome = { hostname, username, desktop ? null, platform ? "x86_64-linux" }: inputs.home-manager.lib.homeManagerConfiguration {
-    pkgs = inputs.nixpkgs.legacyPackages.${platform};
-    extraSpecialArgs = {
-      inherit inputs outputs desktop hostname platform username stateVersion;
+  mkHome = {
+    hostname,
+    username,
+    desktop ? null,
+    platform ? "x86_64-linux",
+  }:
+    inputs.home-manager.lib.homeManagerConfiguration {
+      pkgs = inputs.nixpkgs.legacyPackages.${platform};
+      extraSpecialArgs = {
+        inherit inputs outputs desktop hostname platform username stateVersion;
+      };
+      modules = [../home-manager];
     };
-    modules = [ ../home-manager ];
-  };
 
   # Helper function for generating host configs
-  mkHost = { hostname, username, desktop ? null, installer ? null }: inputs.nixpkgs.lib.nixosSystem {
-    specialArgs = {
-      inherit inputs outputs desktop hostname username stateVersion;
+  mkHost = {
+    hostname,
+    username,
+    desktop ? null,
+    installer ? null,
+  }:
+    inputs.nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit inputs outputs desktop hostname username stateVersion;
+      };
+      modules =
+        [
+          ../nixos
+          inputs.agenix.nixosModules.default
+        ]
+        ++ (inputs.nixpkgs.lib.optionals (installer != null) [installer]);
     };
-    modules = [
-      ../nixos
-      inputs.agenix.nixosModules.default
-    ] ++ (inputs.nixpkgs.lib.optionals (installer != null) [ installer ]);
-  };
 
   forAllSystems = inputs.nixpkgs.lib.genAttrs [
     "aarch64-linux"

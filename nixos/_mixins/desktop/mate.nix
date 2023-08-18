@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   imports = [
     ./qt-style.nix
     ../services/networkmanager.nix
@@ -83,5 +83,5 @@
       };
     };
   };
-  xdg.portal.extraPortals = [ xdg-desktop-portal-gtk ];
+  xdg.portal.extraPortals = [xdg-desktop-portal-gtk];
 }

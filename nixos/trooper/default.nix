@@ -6,16 +6,19 @@
 # NVME:        4TB Corsair MP600
 # SATA:        4TB Samsung 870 QVO
 # SATA:        4TB Samsung 870 QVO
-
-{ inputs, lib, pkgs, ... }:
 {
+  inputs,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
     inputs.nixos-hardware.nixosModules.common-gpu-nvidia
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-    (import ./disks.nix { })
+    (import ./disks.nix {})
     ../_mixins/hardware/systemd-boot.nix
     ../_mixins/hardware/streamdeck.nix
     ../_mixins/services/bluetooth.nix
@@ -31,7 +34,7 @@
   fileSystems."/" = lib.mkForce {
     device = "/dev/disk/by-partlabel/root";
     fsType = "xfs";
-    options = [ "defaults" "relatime" "nodiratime" ];
+    options = ["defaults" "relatime" "nodiratime"];
   };
 
   fileSystems."/boot" = lib.mkForce {
@@ -42,26 +45,28 @@
   fileSystems."/home" = lib.mkForce {
     device = "/dev/disk/by-partlabel/home";
     fsType = "xfs";
-    options = [ "defaults" "relatime" "nodiratime" ];
+    options = ["defaults" "relatime" "nodiratime"];
   };
 
   # UUID=ac6a2f42-bf5b-42bf-bbb2-2bb83a6af615 /mnt/snapshot auto defaults,x-parent=0f904a98:9d3109df:867172aa:c68c98f0 0 0
   fileSystems."/mnt/snapshot" = {
     device = "/dev/disk/by-label/snapshot";
     fsType = "xfs";
-    options = [ "defaults" "relatime" "nodiratime" ];
+    options = ["defaults" "relatime" "nodiratime"];
   };
 
-  swapDevices = [{
-    device = "/swap";
-    size = 2048;
-  }];
+  swapDevices = [
+    {
+      device = "/swap";
+      size = 2048;
+    }
+  ];
 
   boot = {
-    blacklistedKernelModules = lib.mkDefault [ "nouveau" ];
-    initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "sd_mod" ];
-    initrd.kernelModules = [ "nvidia" ];
-    kernelModules = [ "kvm-amd" "nvidia" ];
+    blacklistedKernelModules = lib.mkDefault ["nouveau"];
+    initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "sd_mod"];
+    initrd.kernelModules = ["nvidia"];
+    kernelModules = ["kvm-amd" "nvidia"];
     kernelPackages = pkgs.linuxPackages_latest;
   };
 

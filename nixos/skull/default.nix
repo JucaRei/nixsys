@@ -1,12 +1,15 @@
 # Intel Skull Canyon NUC6i7KYK
-{ inputs, lib, ... }:
 {
+  inputs,
+  lib,
+  ...
+}: {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-gpu-intel
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-    (import ./disks.nix { })
+    (import ./disks.nix {})
     ../_mixins/hardware/systemd-boot.nix
     ../_mixins/services/bluetooth.nix
     ../_mixins/services/maestral.nix
@@ -18,7 +21,7 @@
   fileSystems."/" = lib.mkForce {
     device = "/dev/disk/by-partlabel/root";
     fsType = "xfs";
-    options = [ "defaults" "relatime" "nodiratime" ];
+    options = ["defaults" "relatime" "nodiratime"];
   };
 
   fileSystems."/boot" = lib.mkForce {
@@ -29,27 +32,31 @@
   fileSystems."/home" = lib.mkForce {
     device = "/dev/disk/by-partlabel/home";
     fsType = "xfs";
-    options = [ "defaults" "relatime" "nodiratime" ];
+    options = ["defaults" "relatime" "nodiratime"];
   };
 
-  swapDevices = [{
-    device = "/swap";
-    size = 2048;
-  }];
+  swapDevices = [
+    {
+      device = "/swap";
+      size = 2048;
+    }
+  ];
 
   boot = {
-    initrd.availableKernelModules = [ "xhci_pci" "nvme" "usbhid" "uas" "sd_mod" ];
-    kernelModules = [ "kvm-intel" ];
+    initrd.availableKernelModules = ["xhci_pci" "nvme" "usbhid" "uas" "sd_mod"];
+    kernelModules = ["kvm-intel"];
   };
 
   # Use passed hostname to configure basic networking
   networking = {
     defaultGateway = "192.168.2.1";
-    interfaces.eno1.ipv4.addresses = [{
-      address = "192.168.2.17";
-      prefixLength = 24;
-    }];
-    nameservers = [ "192.168.2.1" ];
+    interfaces.eno1.ipv4.addresses = [
+      {
+        address = "192.168.2.17";
+        prefixLength = 24;
+      }
+    ];
+    nameservers = ["192.168.2.1"];
     useDHCP = lib.mkForce false;
   };
 

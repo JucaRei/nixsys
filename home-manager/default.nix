@@ -1,29 +1,41 @@
-{ config, desktop, inputs, lib, outputs, pkgs, stateVersion, username, ... }:
-let
-  inherit (pkgs.stdenv) isDarwin;
-in
 {
+  config,
+  desktop,
+  inputs,
+  lib,
+  outputs,
+  pkgs,
+  stateVersion,
+  username,
+  ...
+}: let
+  inherit (pkgs.stdenv) isDarwin;
+in {
   # Only import desktop configuration if the host is desktop enabled
   # Only import user specific configuration if they have bespoke settings
-  imports = [
-    # If you want to use modules your own flake exports (from modules/home-manager):
-    # outputs.homeManagerModules.example
+  imports =
+    [
+      # If you want to use modules your own flake exports (from modules/home-manager):
+      # outputs.homeManagerModules.example
 
-    # Or modules exported from other flakes (such as nix-colors):
-    # inputs.nix-colors.homeManagerModules.default
+      # Or modules exported from other flakes (such as nix-colors):
+      # inputs.nix-colors.homeManagerModules.default
 
-    # You can also split up your configuration and import pieces of it here:
-    ./_mixins/console
-  ]
-  ++ lib.optional (builtins.isString desktop) ./_mixins/desktop
-  ++ lib.optional (builtins.isPath (./. + "/_mixins/users/${username}")) ./_mixins/users/${username};
+      # You can also split up your configuration and import pieces of it here:
+      ./_mixins/console
+    ]
+    ++ lib.optional (builtins.isString desktop) ./_mixins/desktop
+    ++ lib.optional (builtins.isPath (./. + "/_mixins/users/${username}")) ./_mixins/users/${username};
 
   home = {
     activation.report-changes = config.lib.dag.entryAnywhere ''
       ${pkgs.nvd}/bin/nvd diff $oldGenPath $newGenPath
     '';
-    homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
-    sessionPath = [ "$HOME/.local/bin" ];
+    homeDirectory =
+      if isDarwin
+      then "/Users/${username}"
+      else "/home/${username}";
+    sessionPath = ["$HOME/.local/bin"];
     inherit stateVersion;
     inherit username;
   };
@@ -58,12 +70,12 @@ in
   nix = {
     # This will add each flake input as a registry
     # To make nix3 commands consistent with your flake
-    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
 
     package = pkgs.unstable.nix;
     settings = {
       auto-optimise-store = true;
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = ["nix-command" "flakes"];
       # Avoid unwanted garbage collection when using nix-direnv
       keep-outputs = true;
       keep-derivations = true;

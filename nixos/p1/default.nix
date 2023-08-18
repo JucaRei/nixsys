@@ -1,13 +1,16 @@
 # Lenovo ThinkPad P1 Gen 1
-
-{ inputs, lib, pkgs, ... }:
 {
+  inputs,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-p1
     inputs.nixos-hardware.nixosModules.common-gpu-intel
     inputs.nixos-hardware.nixosModules.common-gpu-nvidia
     inputs.nixos-hardware.nixosModules.common-hidpi
-    (import ./disks.nix { })
+    (import ./disks.nix {})
     ../_mixins/hardware/systemd-boot.nix
     ../_mixins/services/bluetooth.nix
     ../_mixins/services/maestral.nix
@@ -21,7 +24,7 @@
   fileSystems."/" = lib.mkForce {
     device = "/dev/disk/by-partlabel/root";
     fsType = "xfs";
-    options = [ "defaults" "relatime" "nodiratime" ];
+    options = ["defaults" "relatime" "nodiratime"];
   };
 
   fileSystems."/boot" = lib.mkForce {
@@ -32,18 +35,20 @@
   fileSystems."/home" = lib.mkForce {
     device = "/dev/disk/by-partlabel/home";
     fsType = "xfs";
-    options = [ "defaults" "relatime" "nodiratime" ];
+    options = ["defaults" "relatime" "nodiratime"];
   };
 
-  swapDevices = [{
-    device = "/swap";
-    size = 2048;
-  }];
+  swapDevices = [
+    {
+      device = "/swap";
+      size = 2048;
+    }
+  ];
 
   boot = {
-    blacklistedKernelModules = lib.mkDefault [ "nouveau" ];
-    initrd.availableKernelModules = [ "xhci_pci" "nvme" "uas" "usb_storage" "sd_mod" ];
-    kernelModules = [ "i915" "kvm-intel" "nvidia" ];
+    blacklistedKernelModules = lib.mkDefault ["nouveau"];
+    initrd.availableKernelModules = ["xhci_pci" "nvme" "uas" "usb_storage" "sd_mod"];
+    kernelModules = ["i915" "kvm-intel" "nvidia"];
     kernelPackages = pkgs.linuxPackages_latest;
     loader.systemd-boot.consoleMode = "max";
   };

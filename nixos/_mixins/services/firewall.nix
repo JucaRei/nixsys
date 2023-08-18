@@ -1,5 +1,8 @@
-{ lib, hostname, ... }:
-let
+{
+  lib,
+  hostname,
+  ...
+}: let
   # Firewall configuration variable for syncthing
   syncthing = {
     hosts = [
@@ -17,17 +20,18 @@ let
       "win-max"
       "zed"
     ];
-    tcpPorts = [ 22000 ];
-    udpPorts = [ 22000 21027 ];
+    tcpPorts = [22000];
+    udpPorts = [22000 21027];
   };
-in
-{
+in {
   networking = {
     firewall = {
       enable = true;
-      allowedTCPPorts = [ ]
+      allowedTCPPorts =
+        []
         ++ lib.optionals (builtins.elem hostname syncthing.hosts) syncthing.tcpPorts;
-      allowedUDPPorts = [ ]
+      allowedUDPPorts =
+        []
         ++ lib.optionals (builtins.elem hostname syncthing.hosts) syncthing.udpPorts;
     };
   };

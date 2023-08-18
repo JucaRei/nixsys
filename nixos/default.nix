@@ -1,22 +1,36 @@
-{ config, desktop, hostname, inputs, lib, modulesPath, outputs, pkgs, stateVersion, username, ... }: {
-  imports = [
-    inputs.disko.nixosModules.disko
-    inputs.vscode-server.nixosModules.default
-    (modulesPath + "/installer/scan/not-detected.nix")
-    ./${hostname}
-    ./_mixins/services/firewall.nix
-    ./_mixins/services/fwupd.nix
-    ./_mixins/services/kmscon.nix
-    ./_mixins/services/openssh.nix
-    ./_mixins/services/smartmon.nix
-    ./_mixins/users/root
-    ./_mixins/users/${username}
-  ] ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
+{
+  config,
+  desktop,
+  hostname,
+  inputs,
+  lib,
+  modulesPath,
+  outputs,
+  pkgs,
+  stateVersion,
+  username,
+  ...
+}: {
+  imports =
+    [
+      inputs.disko.nixosModules.disko
+      inputs.vscode-server.nixosModules.default
+      (modulesPath + "/installer/scan/not-detected.nix")
+      ./${hostname}
+      ./_mixins/services/firewall.nix
+      ./_mixins/services/fwupd.nix
+      ./_mixins/services/kmscon.nix
+      ./_mixins/services/openssh.nix
+      ./_mixins/services/smartmon.nix
+      ./_mixins/users/root
+      ./_mixins/users/${username}
+    ]
+    ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
 
   boot = {
     consoleLogLevel = 0;
     initrd.verbose = false;
-    kernelModules = [ "vhost_vsock" ];
+    kernelModules = ["vhost_vsock"];
     kernelParams = [
       "boot.shell_on_fail"
       "loglevel=3"
@@ -33,7 +47,7 @@
   console = {
     font = "${pkgs.tamzen}/share/consolefonts/TamzenForPowerline10x20.psf";
     keyMap = "uk";
-    packages = with pkgs; [ tamzen ];
+    packages = with pkgs; [tamzen];
   };
 
   i18n = {
@@ -62,12 +76,13 @@
 
   environment = {
     # Eject nano and perl from the system
-    defaultPackages = with pkgs; lib.mkForce [
-      gitMinimal
-      home-manager
-      micro
-      rsync
-    ];
+    defaultPackages = with pkgs;
+      lib.mkForce [
+        gitMinimal
+        home-manager
+        micro
+        rsync
+      ];
     systemPackages = with pkgs; [
       agenix
       pciutils
@@ -85,7 +100,7 @@
   fonts = {
     fontDir.enable = true;
     fonts = with pkgs; [
-      (nerdfonts.override { fonts = [ "FiraCode" "SourceCodePro" "UbuntuMono" ]; })
+      (nerdfonts.override {fonts = ["FiraCode" "SourceCodePro" "UbuntuMono"];})
       fira
       fira-go
       joypixels
@@ -102,10 +117,10 @@
     fontconfig = {
       antialias = true;
       defaultFonts = {
-        serif = [ "Source Serif" ];
-        sansSerif = [ "Work Sans" "Fira Sans" "FiraGO" ];
-        monospace = [ "FiraCode Nerd Font Mono" "SauceCodePro Nerd Font Mono" ];
-        emoji = [ "Joypixels" "Noto Color Emoji" ];
+        serif = ["Source Serif"];
+        sansSerif = ["Work Sans" "Fira Sans" "FiraGO"];
+        monospace = ["FiraCode Nerd Font Mono" "SauceCodePro Nerd Font Mono"];
+        emoji = ["Joypixels" "Noto Color Emoji"];
       };
       enable = true;
       hinting = {
@@ -177,7 +192,7 @@
 
     # This will add each flake input as a registry
     # To make nix3 commands consistent with your flake
-    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
@@ -187,8 +202,8 @@
     package = pkgs.unstable.nix;
     settings = {
       auto-optimise-store = true;
-      experimental-features = [ "nix-command" "flakes" ];
-      
+      experimental-features = ["nix-command" "flakes"];
+
       # Avoid unwanted garbage collection when using nix-direnv
       keep-outputs = true;
       keep-derivations = true;

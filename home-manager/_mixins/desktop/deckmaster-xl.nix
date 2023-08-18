@@ -1,10 +1,13 @@
-{ config, username, ... }:
 {
+  config,
+  username,
+  ...
+}: {
   # https://github.com/muesli/deckmaster
   imports = [
     ../console/deckmaster.nix
   ];
-  
+
   home.file = {
     "${config.xdg.configHome}/autostart/deskmaster-xl.desktop".text = "
       [Desktop Entry]

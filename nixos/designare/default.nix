@@ -9,16 +9,19 @@
 # Storage:     Sedna PCIe Dual 2.5 Inch SATA III (6G) SSD Adapter
 # SATA:        1TB SanDisk SSD Plus
 # SATA:        1TB SanDisk SSD Plus
-
-{ inputs, lib, pkgs, ... }:
 {
+  inputs,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     inputs.nixos-hardware.nixosModules.common-gpu-nvidia
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-    (import ./disks.nix { })
+    (import ./disks.nix {})
     ../_mixins/hardware/systemd-boot.nix
     ../_mixins/services/bluetooth.nix
     ../_mixins/services/maestral.nix
@@ -29,15 +32,17 @@
     ../_mixins/virt
   ];
 
-  swapDevices = [{
-    device = "/swap";
-    size = 2048;
-  }];
+  swapDevices = [
+    {
+      device = "/swap";
+      size = 2048;
+    }
+  ];
 
   boot = {
-    blacklistedKernelModules = lib.mkDefault [ "nouveau" ];
-    initrd.availableKernelModules = [ "ahci" "nvme" "uas" "usbhid" "sd_mod" "xhci_pci" ];
-    kernelModules = [ "amdgpu" "kvm-intel" "nvidia" ];
+    blacklistedKernelModules = lib.mkDefault ["nouveau"];
+    initrd.availableKernelModules = ["ahci" "nvme" "uas" "usbhid" "sd_mod" "xhci_pci"];
+    kernelModules = ["amdgpu" "kvm-intel" "nvidia"];
     kernelPackages = pkgs.linuxPackages_6_3;
   };
 
@@ -64,7 +69,7 @@
       motherboard = "intel";
       package = pkgs.openrgb-with-all-plugins;
     };
-    xserver.videoDrivers = [ "amdgpu" "nvidia" ];
+    xserver.videoDrivers = ["amdgpu" "nvidia"];
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

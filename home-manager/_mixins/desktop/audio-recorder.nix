@@ -1,6 +1,5 @@
-{ lib, ... }:
-with lib.hm.gvariant;
-{
+{lib, ...}:
+with lib.hm.gvariant; {
   dconf.settings = {
     "apps/audio-recorder" = {
       append-to-file = false;

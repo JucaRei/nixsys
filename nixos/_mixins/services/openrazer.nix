@@ -1,5 +1,8 @@
-{ pkgs, username, ... }:
 {
+  pkgs,
+  username,
+  ...
+}: {
   environment.systemPackages = with pkgs; [
     polychromatic
   ];
@@ -11,7 +14,7 @@
       keyStatistics = true;
       mouseBatteryNotifier = true;
       syncEffectsEnabled = true;
-      users = [ "${username}" ];
+      users = ["${username}"];
     };
   };
 }

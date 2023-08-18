@@ -1,4 +1,4 @@
-{ desktop, ... }: {
+{desktop, ...}: {
   imports = [
     ./audio-recorder.nix
     ./celluloid.nix

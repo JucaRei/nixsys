@@ -1,8 +1,8 @@
-{ config, ... }: {
+{config, ...}: {
   networking = {
     firewall = {
       checkReversePath = "loose";
-      allowedUDPPorts = [ config.services.zerotierone.port ];
+      allowedUDPPorts = [config.services.zerotierone.port];
       trustedInterfaces = [
         "ztwfukvgqh"
         "ztrfyc7hsl"
