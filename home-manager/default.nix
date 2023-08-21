@@ -22,7 +22,8 @@ in {
       # inputs.nix-colors.homeManagerModules.default
 
       # You can also split up your configuration and import pieces of it here:
-      ./_mixins/console
+      ./_mixins/common
+      #./_mixins/console
     ]
     ++ lib.optional (builtins.isString desktop) ./_mixins/desktop
     ++ lib.optional (builtins.isPath (./. + "/_mixins/users/${username}")) ./_mixins/users/${username};
