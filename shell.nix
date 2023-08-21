@@ -9,7 +9,8 @@
       home-manager
       git
       alejandra
-      rnix-lsp
+      #rnix-lsp
+      nil
     ];
     shellHook = ''
       echo "
