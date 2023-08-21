@@ -60,10 +60,19 @@ in {
     ];
     # Configure your nixpkgs instance
     config = {
+      # Allow unsupported packages to be built
+      allowUnsupportedSystem = true;
+      # Disable broken package
+      allowBroken = false;
       # Disable if you don't want unfree packages
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
       allowUnfreePredicate = _: true;
+      ### Allow old broken electron
+      # permittedInsecurePackages = lib.singleton "electron-12.2.3";
+
+      # Accept the joypixels license
+      joypixels.acceptLicense = true;
     };
   };
 
@@ -79,7 +88,23 @@ in {
       # Avoid unwanted garbage collection when using nix-direnv
       keep-outputs = true;
       keep-derivations = true;
+      # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html
+      keep-going = true;
+
       warn-dirty = false;
+
+      # Allow to run nix
+      allowed-users = ["${username}" "nixbld" "wheel"];
     };
+    extraOptions = ''
+      keep-outputs          = true
+      keep-derivations      = false
+
+      # Free up to 1GiB whenever there is less than 100MiB left.
+      min-free = ${toString (100 * 1024 * 1024)}
+      max-free = ${toString (1024 * 1024 * 1024)}
+    '';
   };
+  # Nicely reload system units when changing configs
+  systemd.user.startServices = "sd-switch";
 }

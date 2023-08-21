@@ -10,7 +10,7 @@
     celluloid
     gthumb
     formatter
-    torrential
+    # torrential
     usbimager
     yaru-theme
   ];

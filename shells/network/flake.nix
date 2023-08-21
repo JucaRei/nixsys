@@ -19,6 +19,7 @@
           bmon # Modern Unix `iftop`
           curlie # Terminal HTTP client
           dogdns # Modern Unix `dig`
+          fast-cli # Terminal fast.com speedtest
           httpie # Terminal HTTP client
           iperf3 # Terminal network benchmarking
           mtr # Modern Unix `traceroute`

@@ -18,6 +18,7 @@
       (modulesPath + "/installer/scan/not-detected.nix")
       ./${hostname}
       ./_mixins/services/firewall.nix
+      ./_mixins/services/filecopy.nix
       ./_mixins/services/fwupd.nix
       ./_mixins/services/kmscon.nix
       ./_mixins/services/openssh.nix
