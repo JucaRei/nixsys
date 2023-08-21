@@ -210,8 +210,10 @@ in {
       };
 
       nix_shell = {
-        disabled = false;
-        format = "[](fg:white)[ ](bg:white fg:black)[](fg:white) ";
+        format = "[($name \\(develop\\) <- )$symbol]($style) ";
+        impure_msg = "";
+        symbol = " ";
+        style = "bold red";
       };
 
       jobs = {
