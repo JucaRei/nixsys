@@ -26,7 +26,6 @@
     };
   };
 }
-
 # {
 #   config,
 #   options,
@@ -41,7 +40,6 @@
 #   options.modules.desktop.browsers.chromium = let
 #     inherit (lib.options) mkEnableOption;
 #   in {enable = mkEnableOption "Google-free chromium";};
-
 #   config = mkIf config.modules.desktop.browsers.chromium.enable {
 #     user.packages = let
 #       inherit (pkgs) makeDesktopItem ungoogled-chromium;
@@ -55,7 +53,6 @@
 #         categories = ["Network"];
 #       })
 #     ];
-
 #     hm.programs.chromium = {
 #       enable = true;
 #       package = let
@@ -68,13 +65,11 @@
 #           "--fingerprinting-client-rects-noise"
 #           "--popups-to-tabs"
 #           "--show-avatar-button=incognito-and-guest"
-
 #           # Performance
 #           "--enable-gpu-rasterization"
 #           "--enable-oop-rasterization"
 #           "--enable-zero-copy"
 #           "--ignore-gpu-blocklist"
-
 #           # Experimental features
 #           "--enable-features=${
 #             concatStringsSep "," [
@@ -115,3 +110,4 @@
 #     };
 #   };
 # }
+

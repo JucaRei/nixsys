@@ -297,6 +297,7 @@
         hostname = "hyperv";
         username = "juca";
         desktop = "mate";
+      };
     };
 
     # Devshell for bootstrapping; acessible via 'nix develop' or 'nix-shell' (legacy)

@@ -5,8 +5,6 @@
     package = pkgs.unstable.firefox;
   };
 }
-
-
 # {
 #   options,
 #   config,
@@ -18,7 +16,6 @@
 #   inherit (lib.attrsets) mapAttrsToList;
 #   inherit (lib.modules) mkIf mkMerge;
 #   inherit (lib.strings) concatStrings;
-
 #   cfg = config.modules.desktop.browsers.firefox;
 # in {
 #   options.modules.desktop.browsers.firefox = let
@@ -28,18 +25,15 @@
 #   in {
 #     enable = mkEnableOption "Gecko-based libre browser";
 #     profileName = mkOpt str config.user.name;
-
 #     settings = mkOpt' (attrsOf (oneOf [bool int str])) {} ''
 #       Firefox preferences set in <filename>user.js</filename>
 #     '';
 #     extraConfig = mkOpt' lines "" ''
 #       Extra lines to add to <filename>user.js</filename>
 #     '';
-
 #     userChrome = mkOpt' lines "" "CSS Styles for Firefox's interface";
 #     userContent = mkOpt' lines "" "Global CSS Styles for websites";
 #   };
-
 #   config = mkIf cfg.enable (mkMerge [
 #     {
 #       user.packages = let
@@ -55,11 +49,9 @@
 #           categories = ["Network" "WebBrowser"];
 #         })
 #       ];
-
 #       # Prevent auto-creation of ~/Desktop. The trailing slash is necessary.
 #       # See: https://bugzilla.mozilla.org/show_bug.cgi?id=1082717
 #       env.XDG_DESKTOP_DIR = "$HOME/";
-
 #       modules.desktop.browsers.firefox.settings = {
 #         # Enables dark-themed flash before page-load:
 #         "ui.systemUsesDarkTheme" = "1";
@@ -119,7 +111,6 @@
 #         "reader.parse-on-load.enabled" = false;
 #         # Allow seperate search-engine usage in private mode!
 #         "browser.search.separatePrivateDefault.ui.enabled" = true;
-
 #         # Security-oriented defaults:
 #         "security.family_safety.mode" = 0;
 #         # https://blog.mozilla.org/security/2016/10/18/phasing-out-sha-1-on-the-public-web/
@@ -176,7 +167,6 @@
 #         "browser.tabs.crashReporting.sendReport" = false;
 #         # Prevents the submission of backlogged reports
 #         "browser.crashReports.unsubmittedCheck.autoSubmit2" = false;
-
 #         # Disable automatic Form autofill
 #         "browser.formfill.enable" = false;
 #         "extensions.formautofill.addresses.enabled" = false;
@@ -185,7 +175,6 @@
 #         "extensions.formautofill.creditCards.enabled" = false;
 #         "extensions.formautofill.heuristics.enabled" = false;
 #       };
-
 #       # Use a stable profile name so we can target it in themes
 #       home.file = let
 #         cfgPath = ".mozilla/firefox";
@@ -198,13 +187,11 @@
 #             IsRelative=1
 #             Path=${cfg.profileName}.default
 #             Default=1
-
 #             [General]
 #             StartWithLastProfile=1
 #             Version=2
 #           '';
 #         };
-
 #         user-js = mkIf (cfg.settings != {} || cfg.extraConfig != "") {
 #           target = "${cfgPath}/${cfg.profileName}.default/user.js";
 #           text = ''
@@ -215,21 +202,19 @@
 #             ${cfg.extraConfig}
 #           '';
 #         };
-
 #         user-chome = mkIf (cfg.userChrome != "") {
 #           target = "${cfgPath}/${cfg.profileName}.default/chrome/userChrome.css";
 #           text = cfg.userChrome;
 #         };
-
 #         user-content = mkIf (cfg.userContent != "") {
 #           target = "${cfgPath}/${cfg.profileName}.default/chrome/userContent.css";
 #           text = cfg.userContent;
 #         };
 #       };
 #     }
-
 #     (mkIf (config.modules.desktop.envProto == "wayland") {
 #       environment.variables = {MOZ_ENABLE_WAYLAND = "1";};
 #     })
 #   ]);
 # }
+

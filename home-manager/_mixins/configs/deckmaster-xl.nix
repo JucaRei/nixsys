@@ -1,5 +1,8 @@
-{ config, username, ... }:
 {
+  config,
+  username,
+  ...
+}: {
   # https://github.com/muesli/deckmaster
   imports = [
     ../utils/deckmaster.nix

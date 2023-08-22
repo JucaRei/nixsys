@@ -1,5 +1,10 @@
-{ pkgs, lib, ...}: with lib.hm.gvariant; {
-    home.packages = with pkgs; [ 
-        handbrake 
-    ];
+{
+  pkgs,
+  lib,
+  ...
+}:
+with lib.hm.gvariant; {
+  home.packages = with pkgs; [
+    handbrake
+  ];
 }

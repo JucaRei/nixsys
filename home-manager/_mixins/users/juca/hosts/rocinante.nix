@@ -1,6 +1,5 @@
-{ lib, ... }:
-with lib.hm.gvariant;
-{
+{lib, ...}:
+with lib.hm.gvariant; {
   imports = [
     #../../../services/keybase.nix
     #../../../services/maestral.nix

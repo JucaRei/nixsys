@@ -1,4 +1,4 @@
-{ lib, ... }:
+{lib, ...}:
 with lib.hm.gvariant; {
   imports = [
     #../../../services/mpris-proxy.nix
@@ -14,9 +14,9 @@ with lib.hm.gvariant; {
   # nixgl.nixGLIntel
 
   # home = {
-    # sessionVariable = {
-      # QT_XCB_GL_INTEGRATION = "none"; # kde-connect
-    # };
+  # sessionVariable = {
+  # QT_XCB_GL_INTEGRATION = "none"; # kde-connect
+  # };
   # };
 
   # services = {

@@ -1,7 +1,9 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # programs.vscode.enable = true;
 
-  home.packages = [ pkgs.vscode ];
+  home.packages = [pkgs.vscode];
 }
