@@ -9,7 +9,7 @@
     hostname,
     username,
     desktop ? null,
-    platform ? "x86_64-linux",
+    platform ? "x86_64-linux" || "aarch64-linux",
   }:
     inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = inputs.nixpkgs.legacyPackages.${platform};

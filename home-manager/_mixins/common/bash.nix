@@ -1,19 +1,14 @@
-{ pkgs, ... }:
-let 
-skim-cmds = {
-  projects = "fd '.git$' ~ -I -t d -t f -d 3 -H -x dirname | sk | tr -d '\n'";
-  files = "fd '.*' '.' --hidden -E '.git*' | sk";
-  history = "history | sk --tac --no-sort | awk '{$1=\"\"}1'";
-  rg = "sk --ansi -i -c 'rg --color=never --line-number \"{}\" .'";
-};
-in {
+{
+  config,
+  pkgs,
+  ...
+}: {
   programs.bash = {
     enable = true;
-    enableVteIntegration = true;
-    historyControl = [ "erasedups" "ignoredups" "ignorespace" ];
+    historyControl = ["erasedups"];
     historyFile = "\$HOME/.bash_history";
     historyFileSize = 40000;
-    historyIgnore = [ "ls" "cd" "exit" "kill" "htop" "top" "btop" "btm" "neofetch" ];
+    historyIgnore = ["ls" "exit" "kill"];
     historySize = 40000;
 
     shellAliases = {
@@ -25,41 +20,92 @@ in {
       ga = "git add";
       gd = "git diff --minimal";
       gl = "git log --oneline --decorate --graph";
+      k = "kubectl";
+      n = "z";
     };
 
     shellOptions = [
-      "histappend"         # Append to history file rather than replacing it.
+      "histappend"
       "autocd"
-      "extglob"            # Extended globbing.
       "globstar"
-      "dotglob"
-      "checkwinsize"       # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
+      "checkwinsize"
       "cdspell"
       "dirspell"
       "expand_aliases"
+      "dotglob"
       "gnu_errfmt"
       "histreedit"
       "nocasematch"
     ];
-    initExtra = ''
-      projects () {
-        local proj="$(${skim-cmds.projects})"
-        [ "" != "$proj" ] && echo ${tm "$proj"}
+
+    sessionVariables = {
+      TERM = "xterm-256color-italic";
+      EDITOR = "nvim";
+      MANPAGER = "nvim +Man!";
+      PATH = "/etc/profiles/per-user/icy/bin:$PATH:$HOME/go/bin:$HOME/bin";
+      CLICOLOR = "1";
+    };
+
+    # TODO: nixify this
+    bashrcExtra = ''
+      refresh_tmux() {
+        tmux refresh-client -S
       }
-      skim-files () {
-        echo $(${skim-cmds.files})
+
+      PROMPT_COMMAND=refresh_tmux
+      PS1="\n\001\002▲\001\002 ";
+      PS2="> "
+
+      ggp() {
+          if [[ "$1" == "-f" ]]; then
+              git push "$(git remote show)" -f "$(git branch --show-current)"
+          else
+              git push "$(git remote show)" "$(git branch --show-current)"
+          fi
       }
-      skim-history () {
-        echo $(${skim-cmds.history})
+
+      gpl() {
+          if [[ "$1" != "" ]]; then
+              branch="$1"
+          else
+              branch="$(git branch --show-current)"
+          fi
+          git pull -r "$(git remote show)" "$branch"
       }
-      skim-rg () {
-        echo $(${skim-cmds.rg})
+
+      gco() {
+          [[ "$1" == "" ]] && return 1
+
+          git rev-parse --verify "$1" &> /dev/null
+          if [ $? -eq 0 ]; then
+              git checkout "$1"
+          else
+              git checkout -b "$1"
+          fi
+      }
+
+      gaf() {
+          git status --short | grep "^ M\|^ D\|^\?\?" | fzy | awk '{ print $2 }' | xargs git add
       }
     '';
-    bashrcExtra = ''
-      # -------===[ External Plugins ]===------- #
-      eval "$(starship init bash)"
-      eval "$(direnv hook bash)"
-    ''
+
+    initExtra = ''
+      # Ctrl+W kills word
+      stty werase undef
+
+      # fzy reverse search
+      __fzy_history() {
+          ch="$(fc -rl 1 | awk -F'\t' '{print $2}' | sort -u | fzy)"
+          : "''${ch#"''${ch%%[![:space:]]*}"}"
+          printf "$_"
+      }
+
+      bind -x '"\C-r": READLINE_LINE=$(__fzy_history); READLINE_POINT="''${#READLINE_LINE}"'
+
+      complete -cf doas
+
+      source <(kubectl completion bash)
+      complete -F __start_kubectl k
+    '';
   };
 }

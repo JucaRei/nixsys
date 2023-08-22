@@ -158,6 +158,18 @@
         hostname = "steamdeck";
         username = "deck";
       };
+      # Laptops
+      "juca@air" = libx.mkHome {
+        hostname = "air";
+        username = "juca";
+        desktop = "mate";
+      };
+      "juca@debianvm" = libx.mkHome {
+        hostname = "debianvm";
+        username = "juca";
+        desktop = "budgie";
+      };
+      "juca@hyperv" = libx.forAllSystems
     };
     nixosConfigurations = {
       # .iso images
