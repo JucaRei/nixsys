@@ -169,7 +169,20 @@
         username = "juca";
         desktop = "budgie";
       };
-      "juca@hyperv" = libx.forAllSystems
+      "juca@hyperv" = libx.mkHome {
+        hostname = "hyperv";
+        username = "juca";
+        desktop = "mate";
+      };
+      "junior@archnitro" = libx.mkHome {
+        hostname = "archnitro";
+        username = "juca";
+      };
+      # WSL
+      "juca@nitrowin" = libx.mkHome {
+        hostname = "nitrowin";
+        username = "juca";
+      };
     };
     nixosConfigurations = {
       # .iso images
@@ -269,6 +282,21 @@
         hostname = "vm-mini";
         username = "juca";
       };
+      # Laptops
+      "juca@air" = libx.mkHost {
+        hostname = "air";
+        username = "juca";
+        desktop = "mate";
+      };
+      "juca@debianvm" = libx.mkHost {
+        hostname = "debianvm";
+        username = "juca";
+        desktop = "budgie";
+      };
+      "juca@hyperv" = libx.mkHost {
+        hostname = "hyperv";
+        username = "juca";
+        desktop = "mate";
     };
 
     # Devshell for bootstrapping; acessible via 'nix develop' or 'nix-shell' (legacy)
