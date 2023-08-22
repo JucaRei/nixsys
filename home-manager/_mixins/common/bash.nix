@@ -15,8 +15,8 @@ in {
     historyIgnore = ["ls" "cd" "exit" "kill" "htop" "top" "btop" "btm" "neofetch"];
 
     shellAliases = {
-      ls = "exa -Slhg --icons";
-      lsa = "exa -Slhga --icons";
+      #ls = "exa -Slhg --icons";
+      #lsa = "exa -Slhga --icons";
       o = "xdg-open";
       gc = "git commit -v -S";
       gst = "git status --short";

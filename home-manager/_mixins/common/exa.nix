@@ -1,17 +1,22 @@
-{pkgs, config, lib, ... }: let
-cfg = config.programs.exa;
-aliases = {
-  ls = "${pkgs.exa}/bin/exa -Slhg --icons";
-  ll = "${pkgs.exa}/bin/exa -l";
-  la = "${pkgs.exa}/bin/exa -a";
-  lt = "${pkgs.exa}/bin/exa --tree";
-  lla = "${pkgs.exa}/bin/exa -la";
-};
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.programs.exa;
+  aliases = {
+    ls = "${pkgs.exa}/bin/exa -Slhg --icons";
+    ll = "${pkgs.exa}/bin/exa -l";
+    la = "${pkgs.exa}/bin/exa -a";
+    lt = "${pkgs.exa}/bin/exa --tree";
+    lla = "${pkgs.exa}/bin/exa -la";
+  };
 in {
   options.programs.exa = {
     enable =
-      mkEnableOption "exa, a modern replacement for <command>ls</command>";
-    enableAliases = mkEnableOption "recommended exa aliases";
+      lib.mkEnableOption "exa, a modern replacement for <command>ls</command>";
+    enableAliases = lib.mkEnableOption "recommended exa aliases";
   };
 
   programs.exa = {
@@ -24,11 +29,11 @@ in {
       "--color=always"
     ];
   };
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs = {
-      bash.shellAliases = mkIf cfg.enableAliases aliases;
-      fish.shellAliases = mkIf cfg.enableAliases aliases;
-      zsh.shellAliases  = mkIf cfg.enableAliases aliases;
+      bash.shellAliases = lib.mkIf cfg.enableAliases aliases;
+      fish.shellAliases = lib.mkIf cfg.enableAliases aliases;
+      zsh.shellAliases = lib.mkIf cfg.enableAliases aliases;
     };
   };
 }
