@@ -8,7 +8,7 @@
       # cyberpunk-neon =
       # builtins.readFile ./assets/bat/themes/cyberpunk-neon.tmTheme;
       Catppuccin-mocha =
-        builtins.readFile ./assets/bat/themes/Catppuccin-mocha.tmTheme;
+        builtins.readFile ../assets/bat/themes/Catppuccin-mocha.tmTheme;
     };
     extraPackages = with pkgs.bat-extras; [
       batdiff

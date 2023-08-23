@@ -9,20 +9,20 @@
     ++ lib.optional (builtins.pathExists (./. + "/hosts/${hostname}.nix")) ./hosts/${hostname}.nix;
 
   home = {
-    file.".bazaar/authentication.conf".text = "
-      [Launchpad]
-      host = .launchpad.net
-      scheme = ssh
-      user = flexiondotorg
-    ";
-    file.".bazaar/bazaar.conf".text = "
-      [DEFAULT]
-      email = Martin Wimpress <code@wimpress.io>
-      launchpad_username = flexiondotorg
-      mail_client = default
-      tab_width = 4
-      [ALIASES]
-    ";
+    # file.".bazaar/authentication.conf".text = "
+    #   [Launchpad]
+    #   host = .launchpad.net
+    #   scheme = ssh
+    #   user = flexiondotorg
+    # ";
+    # file.".bazaar/bazaar.conf".text = "
+    #   [DEFAULT]
+    #   email = Martin Wimpress <code@wimpress.io>
+    #   launchpad_username = flexiondotorg
+    #   mail_client = default
+    #   tab_width = 4
+    #   [ALIASES]
+    # ";
     file.".distroboxrc".text = "
       xhost +si:localuser:$USER
     ";

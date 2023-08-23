@@ -5,6 +5,7 @@
   ...
 }: {
   imports = [
+    ./aria2.nix
     ./atuin.nix
     ./bat.nix
     ./bash.nix
@@ -17,6 +18,8 @@
     ./nix-index.nix
     ./nix.nix
     ./nixpkgs.nix
+    ./skim.nix
+    # ./ssh.nix
     ./variables.nix
     ./zoxide.nix
   ];
