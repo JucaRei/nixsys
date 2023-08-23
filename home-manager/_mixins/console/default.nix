@@ -11,12 +11,12 @@
     # A Modern Unix experience
     # https://jvns.ca/blog/2022/04/12/a-list-of-new-ish--command-line-tools/
     packages = with pkgs; [
-      asciinema # Terminal recorder
-      breezy # Terminal bzr client
-      butler # Terminal Itch.io API client
+      # asciinema # Terminal recorder
+      # breezy # Terminal bzr client
+      # butler # Terminal Itch.io API client
       chafa # Terminal image viewer
       dconf2nix # Nix code from Dconf files
-      debootstrap # Terminal Debian installer
+      #debootstrap # Terminal Debian installer
       diffr # Modern Unix `diff`
       difftastic # Modern Unix `diff`
       dua # Modern Unix `du`
@@ -35,7 +35,7 @@
       lurk # Modern Unix `strace`
       moar # Modern Unix `less`
       neofetch # Terminal system info
-      nixpkgs-review # Nix code review
+      #nixpkgs-review # Nix code review
       nurl # Nix URL fetcher
       nyancat # Terminal rainbow spewing feline
       optipng # Terminal PNG optimizer
@@ -48,13 +48,13 @@
       yq-go # Terminal `jq` for YAML
     ];
 
-    sessionVariables = {
-      EDITOR = "micro";
-      MANPAGER = "sh -c 'col --no-backspaces --spaces | bat --language man'";
-      PAGER = "moar";
-      SYSTEMD_EDITOR = "micro";
-      VISUAL = "micro";
-    };
+    # sessionVariables = {
+    #   EDITOR = "micro";
+    #   MANPAGER = "sh -c 'col --no-backspaces --spaces | bat --language man'";
+    #   PAGER = "moar";
+    #   SYSTEMD_EDITOR = "micro";
+    #   VISUAL = "micro";
+    # };
   };
 
   programs = {

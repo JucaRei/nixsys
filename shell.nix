@@ -7,6 +7,8 @@
     nativeBuildInputs = with pkgs; [
       nix
       home-manager
+      bash-completion
+      nix-bash-completions
       git
       alejandra
       #rnix-lsp

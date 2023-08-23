@@ -1,4 +1,9 @@
-_: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./atuin.nix
     ./bat.nix
@@ -15,4 +20,19 @@ _: {
     ./variables.nix
     ./zoxide.nix
   ];
+
+  home = {
+    sessionVariables = {
+      EDITOR = "micro";
+      MANPAGER = "sh -c 'col --no-backspaces --spaces | bat --language man'";
+      PAGER = "moar";
+      SYSTEMD_EDITOR = "micro";
+      VISUAL = "micro";
+    };
+  };
+
+  programs = {
+    home-manager.enable = true;
+    info.enable = true;
+  };
 }
