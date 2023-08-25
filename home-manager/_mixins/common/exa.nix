@@ -20,8 +20,8 @@ in {
   };
 
   programs.exa = {
-    enable = true;
-    enableAliases = true;
+    enable = lib.mkEnableOption true;
+    enableAliases = lib.mkEnableOption true;
     git = true;
     icons = true;
     extraOptions = [
