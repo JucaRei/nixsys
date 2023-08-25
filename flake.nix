@@ -159,6 +159,10 @@
         hostname = "vm-mini";
         username = "juca";
       };
+      "juca@DietPi" = libx.mkHome {
+        hostname = "DietPi";
+        username = "juca";
+      };
       # Steam Deck
       "deck@steamdeck" = libx.mkHome {
         hostname = "steamdeck";
