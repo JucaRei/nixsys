@@ -15,7 +15,7 @@
     ./htop.nix
     ./micro.nix
     ./neofetch.nix
-    ./nix-index.nix
+    # ./nix-index.nix
     ./nix.nix
     ./nixpkgs.nix
     ./skim.nix
