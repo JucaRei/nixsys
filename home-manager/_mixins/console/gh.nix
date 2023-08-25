@@ -1,4 +1,7 @@
 {pkgs, ...}: {
+  imports = [
+    ./gh-aliases.nix
+  ];
   programs = {
     gh = {
       enable = true;

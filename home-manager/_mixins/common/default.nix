@@ -37,5 +37,6 @@
   programs = {
     home-manager.enable = true;
     info.enable = true;
+    nix-index.enable = true;
   };
 }

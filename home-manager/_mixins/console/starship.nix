@@ -212,7 +212,6 @@ in {
       nix_shell = {
         format = "[($name \\(develop\\) <- )$symbol]($style) ";
         impure_msg = "";
-        symbol = " ";
         style = "bold red";
       };
 

@@ -272,10 +272,17 @@
     };
   };
 
-  systemd.tmpfiles.rules = [
-    "d /nix/var/nix/profiles/per-user/${username} 0755 ${username} root"
-    "d /mnt/snapshot/${username} 0755 ${username} users"
-  ];
+  systemd = {
+    tmpfiles.rules = [
+      "d /nix/var/nix/profiles/per-user/${username} 0755 ${username} root"
+      "d /mnt/snapshot/${username} 0755 ${username} users"
+    ];
+    # Change systemd stop job timeout in NixOS configuration (Default = 90s)
+    services.NetworkManager-wait-online.enable = false;
+    extraConfig = ''
+      DefaultTimeoutStopSec=10s
+    '';
+  };
 
   system.activationScripts.diff = {
     supportsDryActivation = true;
