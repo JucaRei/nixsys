@@ -39,9 +39,4 @@
     info.enable = true;
     nix-index.enable = true;
   };
-
-  config.programs.exa = {
-    enable = true;
-    enableAliases = true;
-  };
 }

@@ -14,6 +14,10 @@ in {
     historyIgnore = ["ls" "cd" "exit" "kill" "htop" "top" "btop" "btm" "neofetch"];
 
     shellAliases = {
+      config = {
+        enableAliases = true;
+      };
+
       #ls = "exa -Slhg --icons";
       #lsa = "exa -Slhga --icons";
       o = "xdg-open";
