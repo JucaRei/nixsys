@@ -26,7 +26,7 @@
     file.".distroboxrc".text = "
       xhost +si:localuser:$USER
     ";
-    file.".face".source = ./face.png;
+    file.".face".source = ./face.jpg;
     #file."Development/debian/.envrc".text = "export DEB_VENDOR=Debian";
     #file."Development/ubuntu/.envrc".text = "export DEB_VENDOR=Ubuntu";
     file.".ssh/config".text = "
