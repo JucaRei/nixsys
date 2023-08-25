@@ -38,5 +38,7 @@
     home-manager.enable = true;
     info.enable = true;
     nix-index.enable = true;
+    exa.enable = true;
+    enableAliases = true;
   };
 }
