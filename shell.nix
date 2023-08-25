@@ -13,6 +13,10 @@
       alejandra
       #rnix-lsp
       nil
+
+      ### Testing
+      # neovim
+      # duf
     ];
     shellHook = ''
       echo "
