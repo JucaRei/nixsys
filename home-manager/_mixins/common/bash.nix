@@ -5,7 +5,7 @@
     rg = "sk --ansi -i -c 'rg --color=never --line-number \"{}\" .'";
   };
 in {
-  programs.bash = {
+  config.programs.bash = {
     enable = true;
     enableVteIntegration = true;
     historyControl = ["erasedups" "ignoredups" "ignorespace"];
@@ -14,9 +14,7 @@ in {
     historyIgnore = ["ls" "cd" "exit" "kill" "htop" "top" "btop" "btm" "neofetch"];
 
     shellAliases = {
-      config = {
-        enableAliases = true;
-      };
+      enableAliases = true;
 
       #ls = "exa -Slhg --icons";
       #lsa = "exa -Slhga --icons";
