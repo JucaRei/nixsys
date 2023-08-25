@@ -32,6 +32,11 @@
       SYSTEMD_EDITOR = "micro";
       VISUAL = "micro";
     };
+
+    # Add support for .local/bin
+    sessionPath = [
+      "$HOME/.local/bin"
+    ];
   };
 
   programs = {
