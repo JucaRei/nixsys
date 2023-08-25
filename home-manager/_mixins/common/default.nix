@@ -19,7 +19,7 @@
     ./nix.nix
     ./nixpkgs.nix
     ./skim.nix
-    # ./ssh.nix
+    ./ssh.nix
     ./variables.nix
     ./zoxide.nix
   ];
@@ -32,11 +32,6 @@
       SYSTEMD_EDITOR = "micro";
       VISUAL = "micro";
     };
-
-    # Add support for .local/bin
-    sessionPath = [
-      "$HOME/.local/bin"
-    ];
   };
 
   programs = {
