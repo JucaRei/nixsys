@@ -23,7 +23,7 @@
 
   programs.exa = {
     enable = true;
-    enableAliases = true;
+    # enableAliases = true;
     git = true;
     icons = true;
     extraOptions = [
