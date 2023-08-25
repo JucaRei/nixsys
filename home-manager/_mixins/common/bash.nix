@@ -13,8 +13,6 @@ in {
     historyFileSize = 40000;
     historyIgnore = ["ls" "cd" "exit" "kill" "htop" "top" "btop" "btm" "neofetch"];
 
-    enableAliases = true;
-    aliases = true;
     shellAliases = {
       #ls = "exa -Slhg --icons";
       #lsa = "exa -Slhga --icons";
