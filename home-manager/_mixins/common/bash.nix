@@ -5,6 +5,9 @@
     rg = "sk --ansi -i -c 'rg --color=never --line-number \"{}\" .'";
   };
 in {
+  imports = [
+    ../../../resources/bash/aliases-home.nix
+  ];
   config.programs.bash = {
     enable = true;
     enableVteIntegration = true;
