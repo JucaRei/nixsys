@@ -9,14 +9,19 @@
     hostname,
     username,
     desktop ? null,
-    platform ? "x86_64-linux" || "aarch64-linux",
+    platform ? "x86_64-linux",
+    # platform ? "aarch64-linux",
   }:
     inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = inputs.nixpkgs.legacyPackages.${platform};
       extraSpecialArgs = {
         inherit inputs outputs desktop hostname platform username stateVersion;
       };
-      modules = [../home-manager];
+      modules = [
+        inputs.nix-index-database.hmModules.nix-index
+        {programs.nix-index-database.comma.enable = true;}
+        ../home-manager
+      ];
     };
 
   # Helper function for generating host configs

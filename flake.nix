@@ -32,8 +32,8 @@
     vscode-server.url = "github:msteen/nixos-vscode-server";
     vscode-server.inputs.nixpkgs.follows = "nixpkgs";
 
-    # nix-index-database.url = "github:Mic92/nix-index-database";
-    # nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+    nix-index-database.url = "github:Mic92/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
     # darwin.url = "github:lnl7/nix-darwin/master"; # MacOS Package Management
     # darwin.inputs.nixpkgs.follows = "nixpkgs";
