@@ -162,6 +162,26 @@
         "type": "github"
       }
     },
+    "nix-index-database": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1692503351,
+        "narHash": "sha256-FdG0wnizM9mAUgi58KP1tXaX4ogVooPDS6VwsGEqZ9s=",
+        "owner": "Mic92",
+        "repo": "nix-index-database",
+        "rev": "4becac130db930e9de8c3fe58bfa245c119b9eeb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "nix-index-database",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1692373088,
@@ -249,6 +269,7 @@
         "flake-compat": "flake-compat",
         "home-manager": "home-manager_2",
         "nix-formatter-pack": "nix-formatter-pack",
+        "nix-index-database": "nix-index-database",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",

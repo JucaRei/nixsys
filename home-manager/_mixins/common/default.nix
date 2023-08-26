@@ -32,6 +32,15 @@
       SYSTEMD_EDITOR = "micro";
       VISUAL = "micro";
     };
+    shellAliases = {
+      ### Nix ###
+      rebuild-home = "home-manager switch -b backup --flake $HOME/Zero/nixsys";
+      rebuild-lock = "pushd $HOME/Zero/nixsys && nix flake lock --recreate-lock-file && popd";
+      nix-clean = "nix-collect-garbage -d";
+      rebuild-iso-console = "pushd $HOME/Zero/nixsys && nix build .#nixosConfigurations.iso-console.config.system.build.isoImage && popd";
+      rebuild-iso-desktop = "pushd $HOME/Zero/nixsys && nix build .#nixosConfigurations.iso-desktop.config.system.build.isoImage && popd";
+      nix-hash-sha256 = "nix-hash --flat --base32 --type sha256";
+    };
   };
 
   programs = {
