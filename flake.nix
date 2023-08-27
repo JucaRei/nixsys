@@ -193,6 +193,11 @@
         hostname = "nitrowin";
         username = "juca";
       };
+      # Testing in container
+      "juca@podnix" = libx.mkHome {
+        hostname = "podnix";
+        username = "juca";
+      };
     };
     nixosConfigurations = {
       # .iso images
