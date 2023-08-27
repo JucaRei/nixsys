@@ -15,8 +15,9 @@
       nil
 
       ### Testing
-      # neovim
-      # duf
+      neovim
+      duf
+      neofetch
     ];
     shellHook = ''
       echo "
