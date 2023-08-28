@@ -117,6 +117,13 @@
             runScript = "bash";
             extraOutputsToInstall = ["dev"];
           }))
+
+      # Activating FHS drops me into a shell that resembles a "normal" Linux environment.
+      # $ fhs
+      # Check what we have in /usr/bin.
+      # (fhs) $ ls /usr/bin
+      # Try running a non-NixOS binary downloaded from the Internet.
+      # (fhs) $ ./bin/code
     ];
 
     variables = {
