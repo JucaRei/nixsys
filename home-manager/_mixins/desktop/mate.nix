@@ -5,6 +5,16 @@
   ...
 }:
 with lib.hm.gvariant; {
+  imports = [
+    ../configs/tilix.nix
+    ../configs/meld.nix
+    ../apps/rhythmbox.nix
+    ../configs/gnome-sound-recorder.nix
+    ../configs/emote.nix
+    ../configs/audio-recorder.nix
+    # ../configs/gitkraken.nix
+    ../apps/celluloid.nix
+  ];
   dconf.settings = {
     "org/gnome/charmap" = {
       font = "Work Sans 22";

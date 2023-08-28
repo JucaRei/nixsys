@@ -21,6 +21,10 @@
   #   enableAliases = lib.mkEnableOption "recommended exa aliases";
   # };
 
+  imports = [
+    ../../../resources/exa/aliases.nix
+  ];
+
   programs.exa = {
     enable = true;
     # enableAliases = true;

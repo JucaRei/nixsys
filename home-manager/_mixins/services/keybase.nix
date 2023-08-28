@@ -6,7 +6,7 @@
   imports =
     []
     ++ lib.optionals (desktop != null) [
-      ../desktop/keybase.nix
+      ../apps/keybase.nix
     ];
 
   services = {

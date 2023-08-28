@@ -7,7 +7,7 @@
   imports =
     []
     ++ lib.optionals (desktop != null) [
-      ../desktop/maestral.nix
+      ../apps/maestral.nix
     ];
 
   home.packages = with pkgs; [

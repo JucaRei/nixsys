@@ -19,11 +19,11 @@ in {
     shellAliases = {
       #ls = "exa -Slhg --icons";
       #lsa = "exa -Slhga --icons";
-      ls = "exa -Slhg --icons";
-      ll = "exa -l";
-      la = "exa -a";
-      lt = "exa --tree";
-      lla = "exa -la";
+      # ls = "exa -Slhg --icons";
+      # ll = "exa -l";
+      # la = "exa -a";
+      # lt = "exa --tree";
+      # lla = "exa -la";
       o = "xdg-open";
       gc = "git commit -v -S";
       gst = "git status --short";
