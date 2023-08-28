@@ -20,8 +20,6 @@
       diffr # Modern Unix `diff`
       difftastic # Modern Unix `diff`
       dua # Modern Unix `du`
-      duf # Modern Unix `df`
-      du-dust # Modern Unix `du`
       entr # Modern Unix `watch`
       fd # Modern Unix `find`
       ffmpeg-headless # Terminal video encoder
@@ -34,7 +32,7 @@
       lazygit # Terminal Git client
       lurk # Modern Unix `strace`
       moar # Modern Unix `less`
-      neofetch # Terminal system info
+
       #nixpkgs-review # Nix code review
       nurl # Nix URL fetcher
       nyancat # Terminal rainbow spewing feline

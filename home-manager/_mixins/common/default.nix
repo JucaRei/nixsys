@@ -25,6 +25,13 @@
   ];
 
   home = {
+    packages = with pkgs; [
+      neofetch # Terminal system info
+      duf # Modern Unix `df`
+      du-dust # Modern Unix `du`
+      util-linux # for small systems
+    ];
+
     sessionVariables = {
       EDITOR = "micro";
       MANPAGER = "sh -c 'col --no-backspaces --spaces | bat --language man'";
