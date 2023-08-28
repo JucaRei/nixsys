@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   imports = [
-    ./git-aliases.nix
+    ../../../resources/git/aliases.nix
   ];
   programs = {
     git = {

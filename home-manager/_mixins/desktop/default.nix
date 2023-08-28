@@ -1,6 +1,7 @@
 {desktop, ...}: {
   imports = [
     ../apps ## apps for all desktops
+    ../apps/tidal-dl.nix
     (./. + "/${desktop}.nix")
   ];
 
