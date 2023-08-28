@@ -15,14 +15,6 @@ _: {
       sk --ansi -c 'grep -rI --color=always --line-number " { } " .'
     '';
 
-    ### Nix ###
-    rebuild-home = "home-manager switch -b backup --flake $HOME/Zero/nixsys";
-    rebuild-lock = "pushd $HOME/Zero/nixsys && nix flake lock --recreate-lock-file && popd";
-    nix-clean = "nix-collect-garbage -d";
-    rebuild-iso-console = "pushd $HOME/Zero/nixsys && nix build .#nixosConfigurations.iso-console.config.system.build.isoImage && popd";
-    rebuild-iso-desktop = "pushd $HOME/Zero/nixsys && nix build .#nixosConfigurations.iso-desktop.config.system.build.isoImage && popd";
-    nix-hash-sha256 = "nix-hash --flat --base32 --type sha256";
-
     ### Yt-dlp ###
     yta-aac = "yt-dlp --extract-audio --audio-format aac ";
     yta-best = "yt-dlp --extract-audio --audio-format best --output '%(title)s.%(ext)s' --no-keep-video ";

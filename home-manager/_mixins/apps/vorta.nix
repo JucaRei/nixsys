@@ -1,19 +1,21 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
-    keybase-gui
+    borgbackup
+    vorta
   ];
 
   systemd.user.services = {
-    keybase-gui = {
+    vorta = {
       Unit = {
-        Description = "Keybase GUI";
+        Description = "Vorta";
       };
       Service = {
-        ExecStart = "${pkgs.keybase-gui}/bin/keybase-gui";
+        ExecStart = "${pkgs.vorta}/bin/vorta --daemonise";
         Restart = "on-failure";
       };
       Install = {
-        WantedBy = ["default.target"];
+        WantedBy = [ "default.target" ];
       };
     };
   };

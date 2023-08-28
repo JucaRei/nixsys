@@ -5,7 +5,7 @@
 }: {
   home = {
     file = {
-      "${config.xdg.configHome}/sakura/sakura.conf".text = builtins.readFile ../common/assets/terminal/sakura/sakura.conf;
+      "${config.xdg.configHome}/sakura/sakura.conf".text = builtins.readFile ../../../resources/sakura/sakura.conf;
     };
     packages = with pkgs; [
       sakura

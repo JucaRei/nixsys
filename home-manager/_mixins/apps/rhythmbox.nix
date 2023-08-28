@@ -1,5 +1,12 @@
-{lib, ...}:
+{
+  lib,
+  pkgs,
+  ...
+}:
 with lib.hm.gvariant; {
+  home.packages = with pkgs; [
+    rhythmbox
+  ];
   dconf.settings = {
     "org/gnome/rhythmbox/plugins" = {
       active-plugins = ["rb" "power-manager" "mpris" "iradio" "generic-player" "audiocd" "android"];
@@ -10,7 +17,7 @@ with lib.hm.gvariant; {
     };
 
     "org/gnome/rhythmbox/rhythmdb" = {
-      locations = ["file:///home/martin/Studio/Music"];
+      locations = ["file:///home/Juca/Music"];
       monitor-library = true;
     };
 

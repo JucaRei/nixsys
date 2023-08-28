@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # https://github.com/tom-james-watson/emote
   home.packages = with pkgs.unstable; [
     emote
@@ -14,7 +15,7 @@
         Restart = "on-failure";
       };
       Install = {
-        WantedBy = ["default.target"];
+        WantedBy = [ "default.target" ];
       };
     };
   };
