@@ -1,8 +1,10 @@
 {username, ...}: {
   systemd.user.tmpfiles.rules = [
-    "d /home/${username}/Scripts 0755 ${username} users - -"
-    "d /home/${username}/Studio/OBS/config/obs-studio/ 0755 ${username} users - -"
+    # "d /home/${username}/Scripts 0755 ${username} users - -"
+    # "d /home/${username}/Studio/OBS/config/obs-studio/ 0755 ${username} users - -"
     "d /home/${username}/Documents/workspace/linux 0755 ${username} users - -"
+    "d /home/${username}/Documents/personal/${username} 0755 ${username} users - -"
+    "d /home/${username}/Documents/personal/mae 0755 ${username} users - -"
     "d /home/${username}/Documents/workspace/virtualmachines/windows 0755 ${username} users - -"
     "d /home/${username}/Documents/workspace/virtualmachines/linux 0755 ${username} users - -"
     "d /home/${username}/Documents/workspace/virtualmachines/mac 0755 ${username} users - -"
@@ -26,10 +28,10 @@
     "d /home/${username}/Music/artits 0755 ${username} users - -"
     "d /home/${username}/Music/downloads 0755 ${username} users - -"
     "d /home/${username}/Music/records 0755 ${username} users - -"
-    "d /home/${username}/Games 0755 ${username} users - -"
-    "d /home/${username}/Quickemu/nixos-desktop 0755 ${username} users - -"
-    "d /home/${username}/Quickemu/nixos-console 0755 ${username} users - -"
-    "d /home/${username}/Syncthing 0755 ${username} users - -"
+    # "d /home/${username}/Games 0755 ${username} users - -"
+    # "d /home/${username}/Quickemu/nixos-desktop 0755 ${username} users - -"
+    # "d /home/${username}/Quickemu/nixos-console 0755 ${username} users - -"
+    # "d /home/${username}/Syncthing 0755 ${username} users - -"
     "d /home/${username}/Pictures/family 0755 ${username} users - -"
     "d /home/${username}/Pictures/backup 0755 ${username} users - -"
     "d /home/${username}/Pictures/phones 0755 ${username} users - -"
@@ -37,6 +39,6 @@
     "d /home/${username}/Pictures/resources 0755 ${username} users - -"
     "d /home/${username}/Zero 0755 ${username} users - -"
     #"d /home/${username}/Volatile/Vorta 0755 ${username} users - -"
-    "L+ /home/${username}/.config/obs-studio/ - - - - /home/${username}/Studio/OBS/config/obs-studio/"
+    # "L+ /home/${username}/.config/obs-studio/ - - - - /home/${username}/Studio/OBS/config/obs-studio/"
   ];
 }

@@ -3,13 +3,20 @@
   outputs,
   stateVersion,
   ...
-}: {
+}: let
+  platforms = [
+    "aarch64-linux"
+    "x86_64-linux"
+    "aarch64-darwin"
+    "x86_64-darwin"
+  ];
+in {
   # Helper function for generating home-manager configs
   mkHome = {
     hostname,
     username,
     desktop ? null,
-    platform ? "x86_64-linux",
+    platform ? platforms,
     # platform ? "aarch64-linux",
   }:
     inputs.home-manager.lib.homeManagerConfiguration {

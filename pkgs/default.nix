@@ -2,7 +2,7 @@
 # Build them using 'nix build .#example' or (legacy) 'nix-build -A example'
 {pkgs ? (import ../nixpkgs.nix) {}}: {
   tidal-dl = pkgs.callPackage ./tidal-dl {};
-  icomoon-feather-font = pkgs.callPackage ./fonts/icomoon-feather-icon-font.nix {};
+  # icomoon-feather-font = pkgs.callPackage ./fonts/icomoon-feather-icon-font.nix {};
   advcpmv = pkgs.callPackage ./advcpmv {};
   # example = pkgs.callPackage ./example { };
 }

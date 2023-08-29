@@ -31,6 +31,7 @@ with lib.hm.gvariant; {
       repeale.material-monokai
       cfigueiroa.material-icon-theme-plus
       vscode-icons-team.vscode-icons
+      moserjose.mosmmy-icons-vscode
     ];
     userSettings = {
       "editor.fontSize" = false;

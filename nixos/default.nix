@@ -45,135 +45,16 @@
     };
   };
 
-  console = {
-    font = "${pkgs.tamzen}/share/consolefonts/TamzenForPowerline10x20.psf";
-    keyMap = "uk";
-    packages = with pkgs; [tamzen];
-  };
-
-  i18n = {
-    defaultLocale = "en_GB.utf8";
-    extraLocaleSettings = {
-      LC_ADDRESS = "en_GB.utf8";
-      LC_IDENTIFICATION = "en_GB.utf8";
-      LC_MEASUREMENT = "en_GB.utf8";
-      LC_MONETARY = "en_GB.utf8";
-      LC_NAME = "en_GB.utf8";
-      LC_NUMERIC = "en_GB.utf8";
-      LC_PAPER = "en_GB.utf8";
-      LC_TELEPHONE = "en_GB.utf8";
-      LC_TIME = "en_GB.utf8";
-    };
-  };
-  services.xserver.layout = "gb";
-  time.timeZone = "Europe/London";
-
-  # Only install the docs I use
-  documentation.enable = true;
-  documentation.nixos.enable = false;
-  documentation.man.enable = true;
-  documentation.info.enable = false;
-  documentation.doc.enable = false;
-
-  environment = {
-    # Eject nano and perl from the system
-    defaultPackages = with pkgs;
-      lib.mkForce [
-        gitMinimal
-        home-manager
-        micro
-        rsync
-      ];
-
-    # System
-    systemPackages = with pkgs; [
-      agenix
-      pciutils
-      psmisc
-      unzip
-      usbutils
-
-      # Create an FHS environment using the command `fhs`, enabling the execution of non-NixOS packages in NixOS!
-      (let
-        base = pkgs.appimageTools.defaultFhsEnvArgs;
-      in
-        pkgs.buildFHSUserEnv (base
-          // {
-            name = "fhs";
-            targetPkgs = pkgs: (
-              # pkgs.buildFHSUserEnv provides only a minimal FHS environment,
-              # lacking many basic packages needed by most software.
-              # Therefore, we need to add them manually.
-              #
-              # pkgs.appimageTools provides basic packages required by most software.
-              (base.targetPkgs pkgs)
-              ++ (with pkgs; [
-                pkg-config
-                ncurses
-                # Feel free to add more packages here if needed.
-              ])
-            );
-            profile = "export FHS=1";
-            runScript = "bash";
-            extraOutputsToInstall = ["dev"];
-          }))
-
-      # Activating FHS drops me into a shell that resembles a "normal" Linux environment.
-      # $ fhs
-      # Check what we have in /usr/bin.
-      # (fhs) $ ls /usr/bin
-      # Try running a non-NixOS binary downloaded from the Internet.
-      # (fhs) $ ./bin/code
-    ];
-
-    variables = {
-      EDITOR = "micro";
-      SYSTEMD_EDITOR = "micro";
-      VISUAL = "micro";
-    };
-  };
-
-  fonts = {
-    fontDir.enable = true;
-    fonts = with pkgs; [
-      (nerdfonts.override {fonts = ["FiraCode" "SourceCodePro" "UbuntuMono"];})
-      fira
-      fira-go
-      joypixels
-      liberation_ttf
-      noto-fonts-emoji
-      source-serif
-      ubuntu_font_family
-      work-sans
-    ];
-
-    # Enable a basic set of fonts providing several font styles and families and reasonable coverage of Unicode.
-    enableDefaultFonts = false;
-
-    fontconfig = {
-      antialias = true;
-      defaultFonts = {
-        serif = ["Source Serif"];
-        sansSerif = ["Work Sans" "Fira Sans" "FiraGO"];
-        monospace = ["FiraCode Nerd Font Mono" "SauceCodePro Nerd Font Mono"];
-        emoji = ["Joypixels" "Noto Color Emoji"];
-      };
-      enable = true;
-      hinting = {
-        autohint = false;
-        enable = true;
-        style = "hintslight";
-      };
-      subpixel = {
-        rgba = "rgb";
-        lcdfilter = "light";
-      };
-    };
-  };
-
   # Use passed hostname to configure basic networking
   networking = {
     extraHosts = ''
+      192.168.1.35  nitro
+      192.168.1.50  nitro
+      192.168.1.76  rocinante
+      192.168.1.45  rocinante
+      192.168.1.228 rocinante
+      192.168.1.230 air
+
       192.168.192.40  skull-zt
       192.168.192.59  trooper-zt
       192.168.193.59  trooper-gaming
@@ -221,9 +102,20 @@
   };
 
   nix = {
+    checkConfig = true;
+    checkAllErrors = true;
+
+    # 🍑 smooth rebuilds
+    # Reduce disk usage
+    daemonIOSchedClass = "idle";
+    # Leave nix builds as a background task
+    daemonCPUSchedPolicy = "idle";
+    #daemonIOSchedPriority = 2; # 7 max
+
     gc = {
       automatic = true;
-      options = "--delete-older-than 10d";
+      options = "--delete-older-than 5d";
+      dates = "00:00";
     };
 
     # This will add each flake input as a registry
@@ -244,8 +136,26 @@
       keep-outputs = true;
       keep-derivations = true;
 
+      # Continue build
+      keep-going = true;
+
       warn-dirty = false;
     };
+
+    extraOptions = ''
+      log-lines = 15
+
+      # Free up to 4GiB whenever there is less than 1GiB left.
+      min-free = ${toString (1024 * 1024 * 1024)}
+      # Free up to 4GiB whenever there is less than 512MiB left.
+      #min-free = ${toString (512 * 1024 * 1024)}
+      max-free = ${toString (4096 * 1024 * 1024)}
+      #min-free = 1073741824 # 1GiB
+      #max-free = 4294967296 # 4GiB
+      #builders-use-substitutes = true
+
+      connect-timeout = 5
+    '';
   };
 
   programs = {
@@ -286,14 +196,14 @@
       '';
       shellAbbrs = {
         nix-gc = "sudo nix-collect-garbage --delete-older-than 10d && nix-collect-garbage --delete-older-than 10d";
-        rebuild-all = "sudo nix-collect-garbage --delete-older-than 10d && nix-collect-garbage --delete-older-than 10d && sudo nixos-rebuild switch --flake $HOME/Zero/nix-config && home-manager switch -b backup --flake $HOME/Zero/nix-config";
-        rebuild-home = "home-manager switch -b backup --flake $HOME/Zero/nix-config";
-        rebuild-host = "sudo nixos-rebuild switch --flake $HOME/Zero/nix-config";
-        rebuild-lock = "pushd $HOME/Zero/nix-config && nix flake update && popd";
-        rebuild-iso-console = "sudo true && pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-console.config.system.build.isoImage && set ISO (head -n1 result/nix-support/hydra-build-products | cut -d'/' -f6) && sudo cp result/iso/$ISO ~/Quickemu/nixos-console/nixos.iso && popd";
-        rebuild-iso-desktop = "sudo true && pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-desktop.config.system.build.isoImage && set ISO (head -n1 result/nix-support/hydra-build-products | cut -d'/' -f6) && sudo cp result/iso/$ISO ~/Quickemu/nixos-desktop/nixos.iso && popd";
-        rebuild-iso-gpd-edp = "sudo true && pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-gpd-edp.config.system.build.isoImage && set ISO (head -n1 result/nix-support/hydra-build-products | cut -d'/' -f6) && sudo cp result/iso/$ISO ~/Quickemu/nixos-gpd-edp.iso && popd";
-        rebuild-iso-gpd-dsi = "sudo true && pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-gpd-dsi.config.system.build.isoImage && set ISO (head -n1 result/nix-support/hydra-build-products | cut -d'/' -f6) && sudo cp result/iso/$ISO ~/Quickemu/nixos-gpd-dsi.iso && popd";
+        rebuild-all = "sudo nix-collect-garbage --delete-older-than 10d && nix-collect-garbage --delete-older-than 10d && sudo nixos-rebuild switch --flake $HOME/Zero/nixsys && home-manager switch -b backup --flake $HOME/Zero/nixsys";
+        rebuild-home = "home-manager switch -b backup --flake $HOME/Zero/nixsys";
+        rebuild-host = "sudo nixos-rebuild switch --flake $HOME/Zero/nixsys";
+        rebuild-lock = "pushd $HOME/Zero/nixsys && nix flake update && popd";
+        rebuild-iso-console = "sudo true && pushd $HOME/Zero/nixsys && nix build .#nixosConfigurations.iso-console.config.system.build.isoImage && set ISO (head -n1 result/nix-support/hydra-build-products | cut -d'/' -f6) && sudo cp result/iso/$ISO ~/Quickemu/nixos-console/nixos.iso && popd";
+        rebuild-iso-desktop = "sudo true && pushd $HOME/Zero/nixsys && nix build .#nixosConfigurations.iso-desktop.config.system.build.isoImage && set ISO (head -n1 result/nix-support/hydra-build-products | cut -d'/' -f6) && sudo cp result/iso/$ISO ~/Quickemu/nixos-desktop/nixos.iso && popd";
+        rebuild-iso-gpd-edp = "sudo true && pushd $HOME/Zero/nixsys && nix build .#nixosConfigurations.iso-gpd-edp.config.system.build.isoImage && set ISO (head -n1 result/nix-support/hydra-build-products | cut -d'/' -f6) && sudo cp result/iso/$ISO ~/Quickemu/nixos-gpd-edp.iso && popd";
+        rebuild-iso-gpd-dsi = "sudo true && pushd $HOME/Zero/nixsys && nix build .#nixosConfigurations.iso-gpd-dsi.config.system.build.isoImage && set ISO (head -n1 result/nix-support/hydra-build-products | cut -d'/' -f6) && sudo cp result/iso/$ISO ~/Quickemu/nixos-gpd-dsi.iso && popd";
       };
       shellAliases = {
         moon = "curl -s wttr.in/Moon";
@@ -319,11 +229,29 @@
     '';
   };
 
-  system.activationScripts.diff = {
-    supportsDryActivation = true;
-    text = ''
-      ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff /run/current-system "$systemConfig"
-    '';
+  system = {
+    activationScripts.diff = {
+      supportsDryActivation = true;
+      text = ''
+        ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff /run/current-system "$systemConfig"
+      '';
+      fixboot.text = ''
+        ln -sfn "$(readlink -f "$systemConfig")" /run/current-system
+      '';
+    };
+
+    autoUpgrade = {
+      enable = true;
+      flake = inputs.self.outPath;
+      flags = [
+        "--update-input"
+        "nixpkgs"
+        "-L" #print build logs
+      ];
+      dates = "monthly";
+      randomizedDelaySec = "45min";
+    };
+
+    stateVersion = stateVersion;
   };
-  system.stateVersion = stateVersion;
 }

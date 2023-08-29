@@ -4,8 +4,8 @@ with lib.hm.gvariant; {
     ../../../services/keybase.nix
     ../../../services/mpris-proxy.nix
     ../../../services/syncthing.nix
-    ../../../desktop/sakura.nix
-    ../../../desktop/vorta.nix
+    ../../../apps/sakura.nix
+    ../../../apps/vorta.nix
   ];
   dconf.settings = {
     "org/gnome/desktop/background" = {
