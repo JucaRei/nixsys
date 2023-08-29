@@ -42,6 +42,12 @@
 
     # nixos-generators.url = "github:NixOS/nixos-hardware/master";
 
+    # generate iso/qcow2/docker/... image from nixos configuration
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # nur.url = "github:nix-community/NUR"; # Add "nur.nixosModules.nur" to the host modules
 
     # spicetify-nix.url = "github:the-argus/spicetify-nix";
@@ -61,6 +67,16 @@
 
     # hyprland.url = "github:vaxerski/Hyprland"; # Add "hyprland.nixosModules.default" to the host modules
     # hyprland.inputs.nixpkgs.follows = "nixpkgs";
+
+    # modern window compositor
+    hyprland.url = "github:hyprwm/Hyprland/v0.28.0";
+    # community wayland nixpkgs
+    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+    # anyrun - a wayland launcher
+    anyrun = {
+      url = "github:Kirottu/anyrun";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     ### KDE Plasma user settings
     # plasma-manager.url = "github:pjones/plasma-manager"; # Add "inputs.plasma-manager.homeManagerModules.plasma-manager" to the home-manager.users.${user}.imports

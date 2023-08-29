@@ -37,13 +37,18 @@
     xserver = {
       enable = true;
       displayManager = {
-        gdm.enable = true;
+        gdm = {
+          enable = true;
+          # wayland = true;
+        };
+        defaultSession = "hyperland";
       };
       # windowManager = {
       #   i3.enable = true;
       #   bspwm = true;
       # };
       desktopManager = {
+        xterm.enable = false;
         gnome = {
           enable = true;
         };
