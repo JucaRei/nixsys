@@ -13,5 +13,8 @@
       gsmartcontrol
     ];
 
-  services.smartd.enable = true;
+  services = {
+    smartd.enable = true;
+    fstrim.enable = true;
+  };
 }

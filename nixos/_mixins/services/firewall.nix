@@ -6,6 +6,11 @@
   # Firewall configuration variable for syncthing
   syncthing = {
     hosts = [
+      "air"
+      "nitro"
+      "nitrowin"
+      "oldmac"
+
       "brix"
       "designare"
       "micropc"

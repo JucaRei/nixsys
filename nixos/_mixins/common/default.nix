@@ -3,14 +3,20 @@
   pkgs,
   ...
 }: {
-  imports = [
-    ./console.nix
-    ./fonts.nix
-    ./envpkgs.nix
-    ./fhs.nix
-    ./locales.nix
-    ./timezone.nix
-  ];
+  imports =
+    [
+      ./console.nix
+      ./fonts.nix
+      ./fhs.nix
+      ./fhs-fonts.nix
+      ./flatpak.nix
+      ./fwupd.nix
+      ./envpkgs.nix
+      ./locales.nix
+      ./kmscon.nix
+      ./timezone.nix
+    ]
+    ++ lib.optionals (pkgs.system == "x86_64-linux");
 
   #######################
   # Shared Boot Options #

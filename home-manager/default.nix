@@ -49,6 +49,8 @@ in {
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
 
+      outputs.pkgs.default
+
       # You can also add overlays exported from other flakes:
       inputs.agenix.overlays.default
 
